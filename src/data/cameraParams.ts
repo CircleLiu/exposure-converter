@@ -70,11 +70,13 @@ export function getCameraParams(stepSize: StepSize): CameraParams {
   }
 }
 
+import { formatShutterSpeed } from '@/utils/exposure';
+
 export function getShutterSpeedOptions(stepSize: StepSize): { value: number; label: string }[] {
   const params = getCameraParams(stepSize);
   return params.shutterSpeeds.map(speed => ({
     value: speed,
-    label: speed >= 1 ? `${speed}s` : `1/${Math.round(1/speed)}`
+    label: formatShutterSpeed(speed),
   }));
 }
 

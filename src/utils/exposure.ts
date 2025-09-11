@@ -27,18 +27,18 @@ export function parseShutterSpeed(input: string): number {
 }
 
 export function formatShutterSpeed(seconds: number): string {
-  if (seconds >= 1) {
-    // For seconds >= 1, show as whole numbers or clean decimals
-    if (seconds % 1 === 0) {
-      return `${seconds}s`;
-    } else {
-      return `${seconds.toFixed(1)}s`;
+  // Rule: >= 0.4s -> show decimals; < 0.4s -> show fractions
+  if (seconds >= 0.4) {
+    if (seconds >= 1) {
+      return Number.isInteger(seconds) ? `${seconds}s` : `${seconds.toFixed(1)}s`;
     }
-  } else {
-    // For speeds < 1 second, always use fraction format
-    const denominator = Math.round(1 / seconds);
-    return `1/${denominator}`;
+    // Between 0.4s and 1s: 1 decimal place
+    return `${seconds.toFixed(1)}s`;
   }
+
+  // Below 0.4s: show as fraction 1/N using nearest integer denominator
+  const denom = Math.round(1 / seconds);
+  return `1/${denom}`;
 }
 
 export function parseAperture(input: string): number {
