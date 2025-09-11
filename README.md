@@ -14,11 +14,25 @@ A Vue 3-based web application for calculating camera exposure values (EV) and fi
 
 ## How It Works
 
+$$
+\mathrm{EV}=\log_{2}\!\left(\frac{100\cdot \text{aperture}^2}{\text{ISO}\cdot \text{shutter speed}}\right)
+$$
+
+where:
+
+- EV is the exposure value.
+- aperture is the f-number of the aperture (e.g., 2.8 for f/2.8).
+- ISO is the ISO sensitivity (e.g., 100, 200, 400, …).
+- shutter speed is the shutter speed in seconds.
+
 The application uses the standard exposure value formula:
+
 ```
-EV = log₂(A²/T) + log₂(S/100)
+EV = log₂(A²/T) - log₂(S/100)
 ```
+
 Where:
+
 - A = Aperture (f-number)
 - T = Shutter time (seconds)
 - S = ISO value
